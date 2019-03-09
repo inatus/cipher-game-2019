@@ -16,7 +16,47 @@
 </head>
 <body>
 <!-- Place your content here -->
+<input type="text" name="content" value="" id="content"><br/><br/>
+<input type="button" id="submit" value="Input" />
 <!-- SCRIPTS -->
 <!-- Example: <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(function() {
+
+	$("#submit").click(function() {
+		var str = $('#content').val();
+		var strArray = new Array(str.length);
+		for (var i = 0; i < str.length; i++) {
+			strArray[i] = str.charCodeAt(i) - "a".charCodeAt();
+			if (strArray[i] < 0) {
+				strArray[i] = -1 * strArray[i];
+			}
+			console.log(strArray[i]);
+		}
+		var joinedStr = strArray.join('');
+		console.log(joinedStr);
+		var joinedNum = Number(joinedStr);
+		var convArray = new Array();
+		for (var i = 0; joinedNum >= 26; i++) {
+			var mod = joinedNum % 26;
+			convArray[i] = mod;
+			joinedNum = (joinedNum - mod) / 26;
+		}
+		convArray[i] = joinedNum;
+		console.log(convArray);
+		var convStr = "";
+		console.log(convArray[0] + "a".charCodeAt());
+		console.log(String.fromCodePoint(convArray[0] + "a".charCodeAt()));
+		for (var i = 0; i < convArray.length; i++) {
+		console.log(convArray[i] + "a".charCodeAt());
+			var convChar = String.fromCodePoint(convArray[i] + "a".charCodeAt());
+			convStr = convStr + convChar;
+		}
+		console.log(convStr);
+		alert(convStr);
+	});
+});
+</script>
 </body>
 </html>

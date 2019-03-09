@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title></title>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="">
+<!--[if lt IE 9]>
+<script src="//cdn.jsdelivr.net/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut icon" href="">
+</head>
+<body>
+<!-- Place your content here -->
+<input type="text" name="content" value="" id="content"><br/><br/>
+<input type="button" id="submit" value="convert" />
+<!-- SCRIPTS -->
+<!-- Example: <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+$(function() {
+
+	$("#submit").click(function() {
+		var str = $('#content').val();
+		var strArray = new Array(str.length);
+		for (var i = 0; i < str.length; i++) {
+			strArray[i] = str.charCodeAt(i) - "a".charCodeAt();
+			console.log(str.charCodeAt(i));
+		}
+		var base = strArray[strArray.length - 1];
+		console.log(base);
+		for (var i = strArray.length - 2; i >= 0; i--) {
+			base = base * 26 + strArray[i];
+		}
+		console.log(base);
+	 	var baseStr = String(base);
+		console.log(baseStr);
+		var resultArray = new Array();
+		for (var i = 0; true; i++) {
+			if (baseStr.length <= 1) {
+				resultArray[i] = Number(baseStr.substr(0, 1));
+				break;
+			}
+			if (baseStr.substr(0, 1) == "0") {
+				resultArray[i] = Number(baseStr.substr(0, 1));
+				baseStr = baseStr.substr(1, baseStr.length - 1);
+				continue;
+			}
+			resultArray[i] = Number(baseStr.substr(0, 2));
+			if (resultArray[i] <= 26) {
+				if (baseStr.length <= 2) {
+					break;
+				}
+				baseStr = baseStr.substr(2, baseStr.length - 1);
+			} else {
+				resultArray[i] = Number(baseStr.substr(0, 1));
+				if (baseStr.length <= 1) {
+					break;
+				}
+				baseStr = baseStr.substr(1, baseStr.length - 1);
+			}
+		}
+		console.log(resultArray);
+		var result = "";
+		for (var i = 0; i < resultArray.length; i++) {
+			result = result + String.fromCodePoint(resultArray[i] + "a".charCodeAt()); 
+		}
+		console.log(result);
+		alert(result);
+	});
+});
+</script>
+</body>
+</html>
