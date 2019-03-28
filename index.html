@@ -29,6 +29,10 @@ $(function() {
 		var strArray = new Array(str.length);
 		for (var i = 0; i < str.length; i++) {
 			strArray[i] = str.charCodeAt(i) - "a".charCodeAt();
+			if (strArray[i] >= "A".charCodeAt() - "a".charCodeAt() &&
+				strArray[i] <= "Z".charCodeAt() - "a".charCodeAt()) {
+				strArray[i] = strArray[i] - ("A".charCodeAt() - "a".charCodeAt());
+			}
 			if (strArray[i] < 0) {
 				strArray[i] = -1 * strArray[i];
 			}
